@@ -25,6 +25,12 @@ bool new_obj = true;
 bool first = true;
 bool tmp_bool = false;
 bool tmp_bool_1 = false;
+uint32_t dim_timer = 0;
+uint32_t currentColor, ColorNumber;
 
+int dim_power = 10;
+int dim_dir = 1;
+int animateIdx = 0;
+unsigned long animateTimer = 100;
 
 #endif

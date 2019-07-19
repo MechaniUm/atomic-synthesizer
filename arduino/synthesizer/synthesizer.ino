@@ -8,7 +8,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <RBDdimmer.h>
 
-dimmerLamp dimmer1(3);
+dimmerLamp dimmer1(6);
 
 #include "properties.h"
 #include "variables.h"
@@ -20,24 +20,26 @@ dimmerLamp dimmer1(3);
 #include "encoders.h"
 #include "rpi.h"
 
+int btn1Light = 0;
+
 void info() {
     unsigned long tmp = millis();
     while (1) {
         currentTime = millis();
         if (currentTime - tmp > delayAfterSleep) {
-            //digitalWrite(buttonLampPins[0], LOW);
-            //btn1Light = 0;
+            digitalWrite(buttonLampPins[0], LOW);
+            btn1Light = 0;
             break;
         }
         else if (currentTime - tmp > timeBeforeSkip) {
-            //if (!btn1Light) {
-                //digitalWrite(buttonLampPins[0], HIGH);
-                //btn1Light = 1;
-            //}
+            if (!btn1Light) {
+                digitalWrite(buttonLampPins[0], HIGH);
+                btn1Light = 1;
+            }
             readButtons();
             if (buttonPressed[0]) {
-                //digitalWrite(buttonLampPins[0], LOW);
-                //btn1Light = 0;
+                digitalWrite(buttonLampPins[0], LOW);
+                btn1Light = 0;
                 stopInfoEventJSON();
                 break;
             }
@@ -49,18 +51,15 @@ void info() {
 
 void wakeUp() {
     if (sleeping) {
-        //digitalWrite(buttonLampPins[0], LOW);
+        digitalWrite(buttonLampPins[0], LOW);
         wakeUpEventJSON();
         sleeping = false;
         e = 0;
         n = 0;
         p = 0;
-
         setSoundState(SOUND_ON);
-        // delay(delayAfterSleep);
         info();
-        //digitalWrite(buttonLampPins[1], HIGH);
-        setSoundState(SOUND_OFF);
+        digitalWrite(buttonLampPins[1], HIGH);
     }
 }
 
@@ -98,33 +97,30 @@ void loop()
         checkTimer();
         if (buttonPressed[0] && new_obj) {
             delay(10);
+            digitalWrite(buttonLampPins[0], LOW);
             buttonEventJSON(0); // text scroll
             delay(500);
+            digitalWrite(buttonLampPins[0], HIGH);
         }
         if (buttonPressed[1]) {
             new_obj = true;
             delay(10);
             buttonEventJSON(1);
+            digitalWrite(buttonLampPins[1], LOW);
             if (rpiGetSignal()) {
-                //off7Segment();
-                //displaySymbols(0);
-                setSoundState(SOUND_ON);
                 lightShow();
                 display7Segment('p');
                 display7Segment('n');
                 display7Segment('e');
-                setSoundState(SOUND_OFF);
                 delay(delayAfterSynth);
-                //displaySymbols(1);
+                digitalWrite(buttonLampPins[0], HIGH);
             } else {
-                setSoundState(SOUND_ON);
                 alertLightShow();
-                setSoundState(SOUND_OFF);
                 display7Segment('p');
                 display7Segment('n');
                 display7Segment('e');
-                displaySymbols(1);
             }
+            digitalWrite(buttonLampPins[1], HIGH);
         }
         readEncoders();
         dimmer_waiting(50, 33);

@@ -10,7 +10,6 @@
 #ifndef BUTTONS
 #define BUTTONS
 
-
 void buttonsSetup() {
     for (int i = 0; i < 2; i++) {
         pinMode(buttonPins[i], INPUT);

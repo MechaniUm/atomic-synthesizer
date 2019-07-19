@@ -12,30 +12,33 @@
 #include <Arduino.h>
 #define timeForEncoderCounter 150
 #define encoderCounterLimit 2
-#define protonsPin 15
-#define electronsPin 14
-#define neutronsPin 16
+#define protonsPin 11
+#define electronsPin 13
+#define neutronsPin 12
 #define indicatorNumPixels 21
-#define ledPin 19
-#define symbolsPin 17
-#define nixiesPin 5
+#define ledPin 4
+#define symbolsPin 10
+#define nixiesCount 3
 #define dimmerPin 3
 #define dimmerMaxPower 40
 #define dimmerMinPower 10
-#define infoButtonPin 35
-#define synthButtonPin 37
-#define ledNumPixels 3
+#define infoButtonPin 8
+#define synthButtonPin 9
+#define buttonLamp1 17
+#define buttonLamp2 18
+#define ledNumPixels 31
 #define symbolsNumPixels 3
 #define lightshowTime 2
 #define alertLightshowTime 0.2
-#define timeBeforeSleep 30000
-#define mutePin 4
+#define timeBeforeSleep 50000
+#define mutePin 7
 #define delayAfterSleep 22000
 #define rpiPinsCount 4
-#define delayAfterSynth 10000
+#define delayAfterSynth 5000
 #define timeBeforeSkip 5000
 #define animateTick 100
-const int buttonPins[] = { infoButtonPin, synthButtonPin };
+const int buttonPins[] = { synthButtonPin, infoButtonPin };
+const int buttonLampPins[] = { buttonLamp1, buttonLamp2 };
 const int numbers[10][7] = {
     {1, 1, 1, 1, 1, 1, 0}, //0
     {0, 1, 1, 0, 0, 0, 0}, //1
@@ -48,7 +51,9 @@ const int numbers[10][7] = {
     {1, 1, 1, 1, 1, 1, 1}, //8
     {1, 1, 1, 1, 0, 1, 1}  //9
 };
+const int animateArr [] = {0,7,14,15,16,17,10,3,4,5};
 const int rpiPins[] = {39, 41};
-// x x p
-const int encoderPins[] = { 33, 31, 25, 23, 27, 29 };
+const int nixiesPins[] = {14, 15, 16};
+//const int encoderPins[] = { 33, 31, 25, 23, 27, 29 };
+const int encoderPins[] = {24, 25, 26, 27, 22, 23};
 #endif

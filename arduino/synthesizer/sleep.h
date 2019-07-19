@@ -12,23 +12,18 @@
 
 void goToSleep() {
     if (!sleeping) {
+        dimmer1.setPower(10);
+        setSoundState(SOUND_OFF);
+        digitalWrite(buttonLampPins[0], HIGH);
+        digitalWrite(buttonLampPins[1], LOW);
         sleepEventJSON();
         sleeping = true;
         off7Segment();
         displaySymbols(0);
         displayLed(0);
+        dim_timer = 0;
     }
 }
-
-//void wakeUp() {
-//    if (sleeping) {
-//        wakeUpEventJSON();
-//        sleeping = false;
-//        setSoundState(SOUND_ON);
-//        delay(delayAfterSleep);
-//        setSoundState(SOUND_OFF);
-//    }
-//}
 
 void updateTimer() {
     lastActionTime = millis();

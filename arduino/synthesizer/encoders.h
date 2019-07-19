@@ -13,6 +13,7 @@ void displayNewObj() {
     if (new_obj) {
         new_obj = false;
         newObjectEventJSON();
+        digitalWrite(buttonLampPins[0], LOW);
     }
 }
 
@@ -24,7 +25,7 @@ void encodersSetup() {
 }
 
 void readEncoders() {
-    // protons
+    // neutrons
     n0 = digitalRead(encoderPins[0]);
     if ((encoder0PinALast == LOW) && (n0 == HIGH)) {
         unsigned long curTime = millis();
@@ -45,8 +46,8 @@ void readEncoders() {
                         encoderCounter = 0;
                         encoderDirection = 0;
                         encoderCounterTimer = 0;
-                        if (n > 0) {
-                            n--;
+                        if (n < 255) {
+                            n++;
                             updateTimer();
                             displayNewObj();
                             display7Segment('n');
@@ -69,8 +70,8 @@ void readEncoders() {
                         encoderCounter = 0;
                         encoderDirection = 0;
                         encoderCounterTimer = 0;
-                        if (n < 255) {
-                            n++;
+                        if (n > 0) {
+                            n--;
                             updateTimer();
                             displayNewObj();
                             display7Segment('n');
@@ -103,39 +104,6 @@ void readEncoders() {
                 } else {
                     encoderCounter++;
                     if (encoderCounter == encoderCounterLimit) {
-                        if (buttonPressed[0] == 1) {
-                            if (volume > 0) {
-                                volume--;
-                                display7Segment('v');
-                                volumeEventJSON();
-                            }
-                        } else {
-                            if (e > 0) {
-                                e--;
-                                display7Segment('e');
-                            }
-                        }
-                        updateTimer();
-                        displayNewObj();
-                        encoderCounter = 0;
-                        encoderDirection = 0;
-                        encoderCounterTimer = 0;
-
-                    }
-                }
-            } else {
-                if (encoderDirection == 0) {
-                    encoderCounterTimer = millis();
-                    encoderDirection = 1;
-                    encoderCounter = 0;
-                    encoderCounterTimer = 0;
-                } else if (encoderDirection != 1) {
-                    encoderDirection = 1;
-                    encoderCounter = 0;
-                    encoderCounterTimer = 0;
-                } else {
-                    encoderCounter++;
-                    if (encoderCounter == encoderCounterLimit) {
                         encoderCounter = 0;
                         encoderDirection = 0;
                         encoderCounterTimer = 0;
@@ -153,6 +121,38 @@ void readEncoders() {
                                 display7Segment('e');
                             }
                         }
+                    }
+                }
+            } else {
+                if (encoderDirection == 0) {
+                    encoderCounterTimer = millis();
+                    encoderDirection = 1;
+                    encoderCounter = 0;
+                    encoderCounterTimer = 0;
+                } else if (encoderDirection != 1) {
+                    encoderDirection = 1;
+                    encoderCounter = 0;
+                    encoderCounterTimer = 0;
+                } else {
+                    encoderCounter++;
+                     if (encoderCounter == encoderCounterLimit) {
+                        if (buttonPressed[0] == 1) {
+                            if (volume > 0) {
+                                volume--;
+                                display7Segment('v');
+                                volumeEventJSON();
+                            }
+                        } else {
+                            if (e > 0) {
+                                e--;
+                                display7Segment('e');
+                            }
+                        }
+                        updateTimer();
+                        displayNewObj();
+                        encoderCounter = 0;
+                        encoderDirection = 0;
+                        encoderCounterTimer = 0;
                     }
                 }
             }
@@ -184,8 +184,8 @@ void readEncoders() {
                         encoderCounter = 0;
                         encoderDirection = 0;
                         encoderCounterTimer = 0;
-                        if (p > 0) {
-                            p--;
+                        if (p < 255) {
+                            p++;
                             e = p;
                             updateTimer();
                             displayNewObj();
@@ -210,8 +210,8 @@ void readEncoders() {
                         encoderCounter = 0;
                         encoderDirection = 0;
                         encoderCounterTimer = 0;
-                        if (p < 255) {
-                            p++;
+                        if (p > 0) {
+                            p--;
                             e = p;
                             updateTimer();
                             displayNewObj();

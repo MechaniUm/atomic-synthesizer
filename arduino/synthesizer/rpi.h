@@ -10,7 +10,6 @@
 #ifndef RPI
 #define RPI
 
-
 void rpiSetup() {
     for (int i = 0; i < rpiPinsCount; i++)
     {
