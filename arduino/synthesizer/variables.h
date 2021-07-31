@@ -33,4 +33,10 @@ int dim_dir = 1;
 int animateIdx = 0;
 unsigned long animateTimer = 100;
 
+int32_t e_old = -999;
+int32_t p_old = -999;
+int32_t n_old = -999;
+
+String signal;
+
 #endif

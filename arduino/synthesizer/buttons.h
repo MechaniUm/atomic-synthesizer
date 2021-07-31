@@ -12,7 +12,7 @@
 
 void buttonsSetup() {
     for (int i = 0; i < 2; i++) {
-        pinMode(buttonPins[i], INPUT);
+        pinMode(buttonPins[i], INPUT_PULLUP);
     }
     Serial.println("BUTTONS LAUNCH SUCCESSFULL");
 }
@@ -29,7 +29,7 @@ void readButtons() {
             buttonPressed[0] = 0;
         }
     }
-    if (digitalRead(buttonPins[1]) == LOW) {
+    if (digitalRead(buttonPins[1]) == HIGH) {
         if (buttonPressed[1] == 0) {
             updateTimer();
             buttonPressed[1] = 1;

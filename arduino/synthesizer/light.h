@@ -24,9 +24,9 @@ void animate() {
         return;
     }
     for (int j = 0; j < 21; j++) {
-        electrons.setPixelColor(j, electrons.Color(0, 0, 0));
-        protons.setPixelColor(j, protons.Color(0, 0, 0));
-        neutrons.setPixelColor(j, neutrons.Color(0, 0, 0));
+        electrons.setPixelColor(j + 1, electrons.Color(0, 0, 0));
+        protons.setPixelColor(j + 1, protons.Color(0, 0, 0));
+        neutrons.setPixelColor(j + 1, neutrons.Color(0, 0, 0));
     }
     if (animateIdx == 10) 
         animateIdx = 0;
@@ -56,7 +56,7 @@ void dimmer_waiting(int t, int p) {
 }
 
 void off7Segment() {
-    for (int j = 0; j < 21; j++) {
+    for (int j = 0; j < indicatorNumPixels; j++) {
         electrons.setPixelColor(j, electrons.Color(0, 0, 0));
         protons.setPixelColor(j, protons.Color(0, 0, 0));
         neutrons.setPixelColor(j, neutrons.Color(0, 0, 0));
@@ -69,14 +69,16 @@ void off7Segment() {
 void display7Segment(char el) {
     switch (el) {
         case 'e':
+            electrons.setPixelColor(0, electrons.Color(0, 0, 255));
             for (int j = 0; j <= 6; j++) {
                 uint32_t currentColor;
-                if ((numbers[(e % 1000) / 100][j] > 0) && ((e % 1000) / 100 != 0))
+                
+                if (numbers[e % 10][j] > 0)
                     currentColor = electrons.Color(0, 0, 255);
                 else
                     currentColor = electrons.Color(0, 0, 0);
 
-                electrons.setPixelColor(j, currentColor);
+                electrons.setPixelColor(j + 1, currentColor);
             }
             for (int j = 7; j <= 13; j++) {
                 uint32_t currentColor;
@@ -85,58 +87,60 @@ void display7Segment(char el) {
                     currentColor = electrons.Color(0, 0, 255);
                 else
                     currentColor = electrons.Color(0, 0, 0);
-                electrons.setPixelColor(j, currentColor);
+                electrons.setPixelColor(j + 1, currentColor);
             }
             for (int j = 14; j <= 20; j++) {
                 uint32_t currentColor;
-                if (numbers[e % 10 - 2][j] > 0)
+                
+                if ((numbers[(e % 1000) / 100 - 2][j] > 0) && ((e % 1000) / 100 != 0))
                     currentColor = electrons.Color(0, 0, 255);
                 else
                     currentColor = electrons.Color(0, 0, 0);
 
-                electrons.setPixelColor(j, currentColor);
+                electrons.setPixelColor(j + 1, currentColor);
             }
             electrons.show();
             break;
         case 'v':
-            for (int j = 0; j <= 6; j++) {
+            electrons.setPixelColor(0, electrons.Color(0, 0, 255));
+            for (int j = 14; j <= 20; j++) {
                 uint32_t currentColor;
-                if ((numbers[(volume % 1000) / 100][j] > 0) && ((volume % 1000) / 100 != 0))
+                if ((numbers[(volume % 1000) / 100][j] - 2 > 0) && ((volume % 1000) / 100 != 0))
                     currentColor = electrons.Color(0, 0, 255);
                 else
                     currentColor = electrons.Color(0, 0, 0);
 
-                electrons.setPixelColor(j, currentColor);
+                electrons.setPixelColor(j + 1, currentColor);
             }
             for (int j = 7; j <= 13; j++) {
                 uint32_t currentColor;
-
                 if ((numbers[(volume % 100) / 10 - 1][j] > 0) && (((volume % 100) / 10 != 0) || ((volume % 1000) / 100 != 0)))
                     currentColor = electrons.Color(0, 0, 255);
                 else
                     currentColor = electrons.Color(0, 0, 0);
-                electrons.setPixelColor(j, currentColor);
+                electrons.setPixelColor(j + 1, currentColor);
             }
-            for (int j = 14; j <= 20; j++) {
+            for (int j = 0; j <= 6; j++) {
                 uint32_t currentColor;
-                if (numbers[volume % 10 - 2][j] > 0)
+                if (numbers[volume % 10][j] > 0)
                     currentColor = electrons.Color(0, 0, 255);
                 else
                     currentColor = electrons.Color(0, 0, 0);
 
-                electrons.setPixelColor(j, currentColor);
+                electrons.setPixelColor(j + 1, currentColor);
             }
             electrons.show();
             break;
 
         case 'n':
-            for (int j = 0; j <= 6; j++) {
+            neutrons.setPixelColor(0, neutrons.Color(0, 255, 0));
+            for (int j = 14; j <= 20; j++) {
                 uint32_t currentColor;
-                if ((numbers[(n % 1000) / 100][j] > 0) && ((n % 1000) / 100 != 0))
+                if ((numbers[(n % 1000) / 100 - 2][j] > 0) && ((n % 1000) / 100 != 0))
                     currentColor = neutrons.Color(0, 255, 0);
                 else
                     currentColor = neutrons.Color(0, 0, 0);
-                neutrons.setPixelColor(j, currentColor);
+                neutrons.setPixelColor(j + 1, currentColor);
             }
             for (int j = 7; j <= 13; j++) {
                 uint32_t currentColor;
@@ -144,27 +148,28 @@ void display7Segment(char el) {
                     currentColor = neutrons.Color(0, 255, 0);
                 else
                     currentColor = neutrons.Color(0, 0, 0);
-                neutrons.setPixelColor(j, currentColor);
+                neutrons.setPixelColor(j + 1, currentColor);
             }
-            for (int j = 14; j <= 20; j++) {
+            for (int j = 0; j <= 6; j++) {
                 uint32_t currentColor;
-                if (numbers[n % 10 - 2][j] > 0)
+                if (numbers[n % 10][j] > 0)
                     currentColor = neutrons.Color(0, 255, 0);
                 else
                     currentColor = neutrons.Color(0, 0, 0);
-                neutrons.setPixelColor(j, currentColor);
+                neutrons.setPixelColor(j + 1, currentColor);
             }
             neutrons.show();
             break;
 
         case 'p':
-            for (int j = 0; j <= 6; j++) {
+            protons.setPixelColor(0, protons.Color(255, 0, 0));
+            for (int j = 14; j <= 20; j++) {
                 uint32_t currentColor;
-                if ((numbers[(p % 1000) / 100][j] > 0) && ((p % 1000) / 100 != 0))
+                if ((numbers[(p % 1000) / 100 - 2][j] > 0) && ((p % 1000) / 100 != 0))
                     currentColor = protons.Color(255, 0, 0);
                 else
                     currentColor = protons.Color(0, 0, 0);
-                protons.setPixelColor(j, currentColor);
+                protons.setPixelColor(j + 1, currentColor);
             }
             for (int j = 7; j <= 13; j++) {
                 uint32_t currentColor;
@@ -172,15 +177,15 @@ void display7Segment(char el) {
                     currentColor = protons.Color(255, 0, 0);
                 else
                     currentColor = protons.Color(0, 0, 0);
-                protons.setPixelColor(j, currentColor);
+                protons.setPixelColor(j + 1, currentColor);
             }
-            for (int j = 14; j <= 20; j++) {
+            for (int j = 0; j <= 6; j++) {
                 uint32_t currentColor;
-                if (numbers[p % 10 - 2][j] > 0)
+                if (numbers[p % 10][j] > 0)
                     currentColor = protons.Color(255, 0, 0);
                 else
                     currentColor = protons.Color(0, 0, 0);
-                protons.setPixelColor(j, currentColor);
+                protons.setPixelColor(j + 1, currentColor);
             }
             protons.show();
             break;
@@ -230,9 +235,9 @@ void smoothLampsOn(int t, char c) {
 
                     break;
             }
-        digitalWrite(nixiesPins[0], HIGH);
-        digitalWrite(nixiesPins[1], LOW);
-        digitalWrite(nixiesPins[2], HIGH);
+//        digitalWrite(nixiesPins[0], HIGH);
+//        digitalWrite(nixiesPins[1], LOW);
+//        digitalWrite(nixiesPins[2], HIGH);
         led.show();
         if (animateTimer >= 100) {
             animateTimer = 0;
@@ -256,9 +261,9 @@ void smoothLampsOff(int t, char c) {
                 default:
                     break;
             }
-        digitalWrite(nixiesPins[0], LOW);
-        digitalWrite(nixiesPins[1], HIGH);
-        digitalWrite(nixiesPins[2], LOW);
+//        digitalWrite(nixiesPins[0], LOW);
+//        digitalWrite(nixiesPins[1], HIGH);
+//        digitalWrite(nixiesPins[2], LOW);
         led.show();
         if (animateTimer >= 100) {
             animateTimer = 0;
@@ -352,9 +357,9 @@ void ledSetup() {
     off7Segment();
     displaySymbols(0);
     displayLed(0);
-    for (int i = 0; i < nixiesCount; i++) {
-        pinMode(nixiesPins[i], OUTPUT);
-    }
+//    for (int i = 0; i < nixiesCount; i++) {
+//        pinMode(nixiesPins[i], OUTPUT);
+//    }
     Serial.println("LIGHT LAUNCH SUCCESSFULL");
 }
 

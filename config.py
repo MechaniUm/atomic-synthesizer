@@ -5,4 +5,4 @@ query = '''SELECT Symbol, ElementName, IsotopeName, Description, Usage, ParentID
 
 error_query = '''select N from atom where P=:count_p'''
 
-folder_path = '/home/pi/Documents/synthesizer/'
+folder_path = '/home/pi/source/synthesizer/'

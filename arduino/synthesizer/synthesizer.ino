@@ -8,6 +8,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <RBDdimmer.h>
 
+#define ENCODER_DO_NOT_USE_INTERRUPTS
 dimmerLamp dimmer1(6);
 
 #include "properties.h"
@@ -73,6 +74,8 @@ void setup()
     ledSetup();
     buttonsSetup();
     encodersSetup();
+    pinMode(buttonLamp1, OUTPUT);
+    pinMode(buttonLamp2, OUTPUT);
     rpiSetup();
     setSoundState(SOUND_OFF);
     Serial.println("SYSTEM LAUNCH SUCCESSFULL");

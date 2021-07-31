@@ -11,17 +11,22 @@
 #define RPI
 
 void rpiSetup() {
-    for (int i = 0; i < rpiPinsCount; i++)
-    {
-        pinMode(rpiPins[i], INPUT);
-    }
+    signal = "";
+    do {
+      signal = Serial.readString();
+      Serial.println(signal);
+    } while (!signal.equals("1\n"));
     Serial.println("RPI LAUNCH SUCCESSFULL");
 }
 
 int rpiGetSignal() {
-    while (digitalRead(rpiPins[0]) != HIGH)
-        delay(10);
-    return ((digitalRead(rpiPins[1]) == HIGH) ? 1 : 0);
+    signal = "";
+    do {
+      signal = Serial.readString();
+    } while (!signal.equals("1\n") && !signal.equals("0\n"));
+        
+    Serial.write("{\"event\": \"readed\"}\n");
+    return (signal.equals("1\n") ? 1 : 0);
 }
 
 #endif
