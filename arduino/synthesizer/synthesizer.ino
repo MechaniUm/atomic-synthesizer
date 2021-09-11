@@ -53,13 +53,14 @@ void info() {
 void wakeUp() {
     if (sleeping) {
         digitalWrite(buttonLampPins[0], LOW);
+        setSoundState(SOUND_ON);
         wakeUpEventJSON();
         sleeping = false;
         e = 0;
         n = 0;
         p = 0;
-        setSoundState(SOUND_ON);
         info();
+        setSoundState(SOUND_OFF);
         digitalWrite(buttonLampPins[1], HIGH);
     }
 }
@@ -71,13 +72,14 @@ void setup()
     dimmer1.setPower(10); // setPower(0-100%);
     dimmer1.setState(ON);
     soundSetup();
+    setSoundState(SOUND_OFF);
     ledSetup();
     buttonsSetup();
     encodersSetup();
     pinMode(buttonLamp1, OUTPUT);
     pinMode(buttonLamp2, OUTPUT);
     rpiSetup();
-    setSoundState(SOUND_OFF);
+    
     Serial.println("SYSTEM LAUNCH SUCCESSFULL");
     Serial.println("GOING TO SLEEP");
     goToSleep();
@@ -88,7 +90,7 @@ void loop()
     readButtons();
     if (buttonPressed[0] && sleeping) {
         wakeUp();
-        displaySymbols(1);
+        //displaySymbols(1);
         e = 0;
         n = 0;
         p = 0;
@@ -100,12 +102,13 @@ void loop()
         checkTimer();
         if (buttonPressed[0] && new_obj) {
             delay(10);
-            digitalWrite(buttonLampPins[0], LOW);
+            //digitalWrite(buttonLampPins[0], LOW);
             buttonEventJSON(0); // text scroll
             delay(500);
-            digitalWrite(buttonLampPins[0], HIGH);
+            //digitalWrite(buttonLampPins[0], HIGH);
         }
         if (buttonPressed[1]) {
+            setSoundState(SOUND_ON);
             new_obj = true;
             delay(10);
             buttonEventJSON(1);
@@ -116,14 +119,16 @@ void loop()
                 display7Segment('n');
                 display7Segment('e');
                 delay(delayAfterSynth);
-                digitalWrite(buttonLampPins[0], HIGH);
+                //digitalWrite(buttonLampPins[0], HIGH);
             } else {
                 alertLightShow();
                 display7Segment('p');
                 display7Segment('n');
                 display7Segment('e');
             }
+            setSoundState(SOUND_OFF);
             digitalWrite(buttonLampPins[1], HIGH);
+            
         }
         readEncoders();
         dimmer_waiting(50, 33);

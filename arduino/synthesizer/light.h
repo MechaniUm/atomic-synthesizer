@@ -14,7 +14,7 @@ Adafruit_NeoPixel protons = Adafruit_NeoPixel(indicatorNumPixels, protonsPin, NE
 Adafruit_NeoPixel electrons = Adafruit_NeoPixel(indicatorNumPixels, electronsPin, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel neutrons = Adafruit_NeoPixel(indicatorNumPixels, neutronsPin, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel led = Adafruit_NeoPixel(ledNumPixels, ledPin, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel symbols = Adafruit_NeoPixel(symbolsNumPixels, symbolsPin, NEO_GRB + NEO_KHZ800);
+//Adafruit_NeoPixel symbols = Adafruit_NeoPixel(symbolsNumPixels, symbolsPin, NEO_GRB + NEO_KHZ800);
 
 int blankTicks;
 
@@ -194,7 +194,7 @@ void display7Segment(char el) {
     }
 }
 
-
+/*
 void displaySymbols(int mode) {
     if (mode == 0) {
         symbols.setPixelColor(0, symbols.Color(0, 0, 0));
@@ -207,6 +207,7 @@ void displaySymbols(int mode) {
     }
     symbols.show();
 }
+*/
 
 void displayLed(int mode) {
     if (mode == 0) {
@@ -350,12 +351,12 @@ void alertLightShow() {
 
 void ledSetup() {
     led.begin();
-    symbols.begin();
+    //symbols.begin();
     electrons.begin();
     neutrons.begin();
     protons.begin();
     off7Segment();
-    displaySymbols(0);
+    //displaySymbols(0);
     displayLed(0);
 //    for (int i = 0; i < nixiesCount; i++) {
 //        pinMode(nixiesPins[i], OUTPUT);

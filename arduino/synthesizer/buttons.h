@@ -29,7 +29,7 @@ void readButtons() {
             buttonPressed[0] = 0;
         }
     }
-    if (digitalRead(buttonPins[1]) == HIGH) {
+    if (digitalRead(buttonPins[1]) == LOW) {
         if (buttonPressed[1] == 0) {
             updateTimer();
             buttonPressed[1] = 1;

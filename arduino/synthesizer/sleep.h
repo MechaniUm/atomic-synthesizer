@@ -19,7 +19,7 @@ void goToSleep() {
         sleepEventJSON();
         sleeping = true;
         off7Segment();
-        displaySymbols(0);
+        //displaySymbols(0);
         displayLed(0);
         dim_timer = 0;
     }
