@@ -25,8 +25,8 @@
 #define dimmerMinPower 10
 #define infoButtonPin 8
 #define synthButtonPin 9
-#define buttonLamp1 5
-#define buttonLamp2 7
+#define buttonLamp1 7
+#define buttonLamp2 5
 #define ledNumPixels 31
 #define symbolsNumPixels 3
 #define lightshowTime 2

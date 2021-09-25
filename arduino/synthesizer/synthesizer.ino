@@ -72,13 +72,13 @@ void setup()
     dimmer1.setPower(10); // setPower(0-100%);
     dimmer1.setState(ON);
     soundSetup();
-    setSoundState(SOUND_OFF);
     ledSetup();
     buttonsSetup();
     encodersSetup();
     pinMode(buttonLamp1, OUTPUT);
     pinMode(buttonLamp2, OUTPUT);
     rpiSetup();
+    setSoundState(SOUND_OFF);
     
     Serial.println("SYSTEM LAUNCH SUCCESSFULL");
     Serial.println("GOING TO SLEEP");

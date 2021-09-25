@@ -25,6 +25,8 @@ void encodersSetup() {
     n_old = encoder_n.read();
     e_old = encoder_e.read();
     p_old = encoder_p.read();
+    volume = 60;
+    volumeEventJSON();
     
     Serial.println("ENCODERS LAUNCH SUCCESSFULL");
 }
